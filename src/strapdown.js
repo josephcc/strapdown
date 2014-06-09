@@ -1,5 +1,8 @@
 ;(function(window, document) {
+	strapdown_update();
+})(window, document);
 
+function strapdown_update() {
   //////////////////////////////////////////////////////////////////////
   //
   // Shims for IE < 9
@@ -92,7 +95,15 @@
   var newNode = document.createElement('div');
   newNode.className = 'container';
   newNode.id = 'content';
-  document.body.replaceChild(newNode, markdownEl);
+
+  var oldContent = document.getElementById('content');
+  if (oldContent == null) {
+	  oldContent = document.createElement('div');
+	  oldContent.id = 'content';
+	  document.body.appendChild(oldContent);
+  }
+
+  document.body.replaceChild(newNode, oldContent);
 
   // Insert navbar if there's none
   var newNode = document.createElement('div');
@@ -133,5 +144,4 @@
 
   // All done - show body
   document.body.style.display = '';
-
-})(window, document);
+}
